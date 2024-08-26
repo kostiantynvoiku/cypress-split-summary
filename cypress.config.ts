@@ -6,7 +6,8 @@ export default defineConfig({
   e2e: {
     setupNodeEvents(on, config) {
       cypressSplit(on, config)
-    }
+    },
+    supportFile: false,
   },
   watchForFileChanges: false,
   chromeWebSecurity: false,
