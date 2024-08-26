@@ -1,0 +1,26 @@
+name: Run split tests
+on: [workflow_dispatch]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      checks: write
+      contents: write
+      issues: read
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [1, 2, 3]
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run E2E
+        uses: cypress-io/github-action@v6
+        env:
+          SPLIT: ${{ strategy.job-total }}
+          SPLIT_INDEX: ${{ strategy.job-index }}
